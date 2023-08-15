@@ -1,12 +1,47 @@
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    try {
+      console.log(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  //   password validation
+  const validatePassword = (value) => {
+    if (!value) {
+      return "Password is required";
+    }
+    if (value.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    if (!/[a-z]/.test(value)) {
+      return "Password must contain at least one lowercase letter";
+    }
+    if (!/[A-Z]/.test(value)) {
+      return "Password must contain at least one uppercase letter";
+    }
+    if (!/[!@#$%^&*()_+{}[\]:;<>,.?~-]/.test(value)) {
+      return "Password must contain at least one special character";
+    }
+    return true;
+  };
+
   return (
     <>
       <div className='bg-red-100 h-screen flex justify-center items-center'>
         <div className='bg-white p-8 shadow-md rounded-md w-96'>
           <h1 className='text-2xl font-semibold text-red-700 mb-4'>Sign Up</h1>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className='mb-4'>
               <label
                 htmlFor='name'
@@ -15,12 +50,21 @@ const SignUp = () => {
                 Name
               </label>
               <input
+                {...register("name", { required: true })}
                 type='text'
                 id='name'
                 name='name'
-                className='w-full border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-red-300'
-                required
+                className={`w-full border rounded-md py-2 px-3 focus:outline-none focus:ring ${
+                  errors.name
+                    ? "border-red-500"
+                    : "border-gray-300 focus:border-red-300"
+                }`}
               />
+              {errors.name && (
+                <span className='text-red-500 text-xs mt-1'>
+                  Name is required
+                </span>
+              )}
             </div>
             <div className='mb-4'>
               <label
@@ -30,12 +74,21 @@ const SignUp = () => {
                 Email
               </label>
               <input
+                {...register("email", { required: true })}
                 type='email'
                 id='email'
                 name='email'
-                className='w-full border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-red-300'
-                required
+                className={`w-full border rounded-md py-2 px-3 focus:outline-none focus:ring ${
+                  errors.email
+                    ? "border-red-500"
+                    : "border-gray-300 focus:border-red-300"
+                }`}
               />
+              {errors.email && (
+                <span className='text-red-500 text-xs mt-1'>
+                  Email is required
+                </span>
+              )}
             </div>
             <div className='mb-4'>
               <label
@@ -45,12 +98,24 @@ const SignUp = () => {
                 Password
               </label>
               <input
+                {...register("password", {
+                  required: true,
+                  validate: validatePassword,
+                })}
                 type='password'
                 id='password'
                 name='password'
-                className='w-full border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-red-300'
-                required
+                className={`w-full border rounded-md py-2 px-3 focus:outline-none focus:ring ${
+                  errors.password
+                    ? "border-red-500"
+                    : "border-gray-300 focus:border-red-300"
+                }`}
               />
+              {errors.password && (
+                <span className='text-red-500 text-xs mt-1'>
+                  {errors.password.message}
+                </span>
+              )}
             </div>
             <div className='mb-4'>
               <label
@@ -60,12 +125,21 @@ const SignUp = () => {
                 Photo URL
               </label>
               <input
+                {...register("photoURL", { required: true })}
                 type='url'
                 id='photoURL'
                 name='photoURL'
-                className='w-full border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-red-300'
-                required
+                className={`w-full border rounded-md py-2 px-3 focus:outline-none focus:ring ${
+                  errors.photoURL
+                    ? "border-red-500"
+                    : "border-gray-300 focus:border-red-300"
+                }`}
               />
+              {errors.photoURL && (
+                <span className='text-red-500 text-xs mt-1'>
+                  Photo URL is required
+                </span>
+              )}
             </div>
             <button
               type='submit'
