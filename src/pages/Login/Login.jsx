@@ -2,7 +2,6 @@
 
 import { Link } from "react-router-dom";
 
-/* eslint-disable react/no-unescaped-entities */
 const Login = () => {
   // const {signInUser} = useAuth()
 
