@@ -1,8 +1,20 @@
+import useAuth from "../../../hooks/useAuth";
 import Logo from "./Logo";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const user = null;
+  const { user, logOut } = useAuth();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Logged out successfully!", {
+          duration: 3000,
+        });
+      })
+      .catch((error) => console.error(error));
+  };
 
   const navOptions = (
     <>
@@ -13,6 +25,9 @@ const Navbar = () => {
           </li>
           <li>
             <Link to='/'>Blogs</Link>
+          </li>
+          <li>
+            <button onClick={handleLogOut}></button>
           </li>
         </>
       ) : (

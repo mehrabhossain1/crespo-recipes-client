@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const {
@@ -17,6 +18,9 @@ const SignUp = () => {
       createUser(data.email, data.password).then((result) => {
         const loggedInUser = result.user;
         console.log(loggedInUser);
+        toast.success("User Created Successfully", {
+          duration: 3000,
+        });
       });
     } catch (error) {
       console.error(error.message);
