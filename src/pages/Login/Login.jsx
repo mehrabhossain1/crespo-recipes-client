@@ -7,10 +7,12 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    reset,
     // formState: { errors },
   } = useForm();
 
   const { signInUser } = useAuth();
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -21,6 +23,7 @@ const Login = () => {
       signInUser(data.email, data.password).then((result) => {
         const user = result.user;
         console.log(user);
+        reset();
         toast.success("Login Successful", {
           duration: 3000,
         });

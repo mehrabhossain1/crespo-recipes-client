@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 
@@ -7,19 +7,30 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const { createUser } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
+
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     try {
       createUser(data.email, data.password).then((result) => {
         const loggedInUser = result.user;
         console.log(loggedInUser);
-        toast.success("User Created Successfully", {
-          duration: 3000,
-        });
+        // update name and photo
+        updateUserProfile(data.name, data.photoURL)
+          .then(() => {
+            console.log("user profile updated successfully");
+            reset();
+            toast.success("User Created Successfully", {
+              duration: 3000,
+            });
+            navigate("/");
+          })
+          .catch((error) => console.error(error.message));
       });
     } catch (error) {
       console.error(error.message);
