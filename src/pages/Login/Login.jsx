@@ -8,7 +8,7 @@ const Login = () => {
     register,
     handleSubmit,
     reset,
-    // formState: { errors },
+    formState: { errors },
   } = useForm();
 
   const { signInUser } = useAuth();
@@ -53,8 +53,12 @@ const Login = () => {
                 id='email'
                 name='email'
                 className='w-full border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-red-300'
-                required
               />
+              {errors.email && (
+                <span className='text-red-500 text-xs mt-1'>
+                  Email is required
+                </span>
+              )}
             </div>
             <div className='mb-4'>
               <label
@@ -69,8 +73,12 @@ const Login = () => {
                 id='password'
                 name='password'
                 className='w-full border rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-red-300'
-                required
               />
+              {errors.password && (
+                <span className='text-red-500 text-xs mt-1'>
+                  Password is required
+                </span>
+              )}
             </div>
             <button
               type='submit'

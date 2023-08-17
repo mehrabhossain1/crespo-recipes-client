@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
+import defaultUser from "../../../assets/defaultuser.png";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -93,7 +94,11 @@ const Navbar = () => {
             </div>
           ) : (
             <>
-              <button>sign up</button> <button>login</button>
+              <img
+                className='w-12 h-12 rounded-full border-2 border-white mr-3'
+                src={defaultUser}
+                alt='default user picture'
+              />
             </>
           )}
         </div>
