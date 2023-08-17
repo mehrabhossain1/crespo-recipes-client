@@ -2,6 +2,7 @@ import useAuth from "../../../hooks/useAuth";
 import Logo from "./Logo";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Tooltip } from "react-tooltip";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -45,7 +46,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className='navbar bg-base-100'>
+      <nav className='navbar bg-base-100'>
         <div className='navbar-start'>
           <div className='dropdown'>
             <label tabIndex={0} className='btn btn-ghost lg:hidden'>
@@ -80,16 +81,23 @@ const Navbar = () => {
         </div>
         <div className='navbar-end'>
           {user ? (
-            <>
-              <div>profile pic</div>
-            </>
+            <div className='relative'>
+              <img
+                className='w-12 h-12 rounded-full border-2 border-white mr-3'
+                src={user.photoURL}
+                alt='profile picture'
+                data-tooltip-id='my-tooltip'
+                data-tooltip-content={user.displayName}
+              />
+              <Tooltip id='my-tooltip' />
+            </div>
           ) : (
             <>
               <button>sign up</button> <button>login</button>
             </>
           )}
         </div>
-      </div>
+      </nav>
     </>
   );
 };
