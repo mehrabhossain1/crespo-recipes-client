@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
@@ -11,6 +11,10 @@ const Login = () => {
   } = useForm();
 
   const { signInUser } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data) => {
     try {
@@ -20,6 +24,7 @@ const Login = () => {
         toast.success("Login Successful", {
           duration: 3000,
         });
+        navigate(from, { replace: true });
       });
     } catch (error) {
       console.error(error.message);

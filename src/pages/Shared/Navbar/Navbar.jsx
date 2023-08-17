@@ -24,7 +24,7 @@ const Navbar = () => {
             <Link to='/'>Home</Link>
           </li>
           <li>
-            <Link to='/'>Blogs</Link>
+            <Link to='/blogs'>Blogs</Link>
           </li>
           <li>
             <button onClick={handleLogOut}>Logout</button>
@@ -71,26 +71,21 @@ const Navbar = () => {
               {navOptions}
             </ul>
           </div>
-          <a className='btn btn-ghost normal-case text-xl'>
+          <div className='btn btn-ghost normal-case text-xl'>
             <Logo />
-          </a>
+          </div>
         </div>
         <div className='navbar-center hidden lg:flex'>
-          <ul className='menu menu-horizontal px-1'>
-            {navOptions}
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
+          <ul className='menu menu-horizontal px-1'>{navOptions}</ul>
         </div>
         <div className='navbar-end'>
           {user ? (
             <>
-              <div>profime pic</div>
+              <div>profile pic</div>
             </>
           ) : (
             <>
-              <button>sing up</button> <button>login</button>
+              <button>sign up</button> <button>login</button>
             </>
           )}
         </div>
