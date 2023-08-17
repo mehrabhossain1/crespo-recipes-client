@@ -1,16 +1,37 @@
-// import useAuth from "../../hooks/useAuth";
-
+import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
-  // const {signInUser} = useAuth()
+  const {
+    register,
+    handleSubmit,
+    // formState: { errors },
+  } = useForm();
+
+  const { signInUser } = useAuth();
+
+  const onSubmit = (data) => {
+    try {
+      signInUser(data.email, data.password).then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success("Login Successful", {
+          duration: 3000,
+        });
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <>
       <div className='bg-red-100 h-screen flex justify-center items-center'>
         <div className='bg-white p-8 shadow-md rounded-md w-96'>
           <h1 className='text-2xl font-semibold text-red-700 mb-4'>Login</h1>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className='mb-4'>
               <label
                 htmlFor='email'
@@ -19,6 +40,7 @@ const Login = () => {
                 Email
               </label>
               <input
+                {...register("email", { required: true })}
                 type='email'
                 id='email'
                 name='email'
@@ -34,6 +56,7 @@ const Login = () => {
                 Password
               </label>
               <input
+                {...register("password", { required: true })}
                 type='password'
                 id='password'
                 name='password'
