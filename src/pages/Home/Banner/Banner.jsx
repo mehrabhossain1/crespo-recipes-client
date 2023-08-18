@@ -1,11 +1,22 @@
 import bannerImg from "../../../assets/banner.jpg";
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
+// ..
+AOS.init();
 
 const Banner = () => {
   return (
-    <div className='flex'>
+    <div className='relative flex'>
       <img src={bannerImg} alt='banner img' className='h-[500px] w-2/3' />
-      <div className='h-[500px] bg-[#E80000] w-1/3 justify-center items-center'>
-        <h2 className='font-semibold text-6xl text-white'>
+      <div className='h-[500px] bg-[#E80000] w-1/3'>
+        <h2
+          // className='font-semibold text-6xl text-white'
+          className='absolute right-96 bg-[#E80000] p-2 text-4xl font-bold'
+          data-aos='fade-left'
+          data-aos-anchor='#example-anchor'
+          data-aos-offset='500'
+          data-aos-duration='500'
+        >
           Crespo Fried Chicken
         </h2>
         <p>
