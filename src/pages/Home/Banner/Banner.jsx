@@ -8,10 +8,10 @@ const Banner = () => {
   return (
     <div className='relative flex'>
       <img src={bannerImg} alt='banner img' className='h-[500px] w-2/3' />
-      <div className='h-[500px] bg-[#E80000] w-1/3'>
+      <div className='h-[500px] bg-[#E80000] w-1/3 text-white'>
         <h2
           // className='font-semibold text-6xl text-white'
-          className='absolute right-96 bg-[#E80000] p-2 text-4xl font-bold'
+          className='lg:absolute right-96 bg-[#E80000] p-2 text-4xl font-bold'
           data-aos='fade-left'
           data-aos-anchor='#example-anchor'
           data-aos-offset='500'
